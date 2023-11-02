@@ -4,12 +4,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import {Link} from "react-router-dom";
 
 const Topbar = () => {
   return (
     <div className="topbarContainer">
         <div className="topbarLeft">
-            <span className="logo">facebook</span>
+           <Link to="/" style={{textDecoration:"none"}}> 
+               <span className="logo" >facebook</span>
+           </Link>
         </div>
         <div className="topbarCenter">
             <div className="searchbar">

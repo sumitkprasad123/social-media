@@ -17,22 +17,22 @@ const Share = () => {
             <hr className="shareHr" />
             <div className="shareBottom">
                <div className="shareOptions">
-                <div className="shareOption">
-                    <CollectionsIcon htmlColor='tomato' className='shareIcon' />
-                    <span className="shareOptionText">Photo or Video</span>
-                </div>
-                <div className="shareOption">
-                    <LoyaltyIcon htmlColor='blue' className='shareIcon' />
-                    <span className="shareOptionText">Tag</span>
-                </div>
-                <div className="shareOption">
-                    <LocationOnIcon htmlColor='green' className='shareIcon' />
-                    <span className="shareOptionText">Location</span>
-                </div>
-                <div className="shareOption">
-                    <MoodIcon htmlColor='gold' className='shareIcon' />
-                    <span className="shareOptionText">Feeling</span>
-                </div>
+                    <div className="shareOption">
+                        <CollectionsIcon htmlColor='tomato' className='shareIcon' />
+                        <span className="shareOptionText">Photo or Video</span>
+                    </div>
+                    <div className="shareOption">
+                        <LoyaltyIcon htmlColor='blue' className='shareIcon' />
+                        <span className="shareOptionText">Tag</span>
+                    </div>
+                    <div className="shareOption">
+                        <LocationOnIcon htmlColor='green' className='shareIcon' />
+                        <span className="shareOptionText">Location</span>
+                    </div>
+                    <div className="shareOption">
+                        <MoodIcon htmlColor='gold' className='shareIcon' />
+                        <span className="shareOptionText">Feeling</span>
+                    </div>
                </div>
                <button className="shareButton">Share</button>
             </div>

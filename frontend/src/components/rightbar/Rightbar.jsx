@@ -37,7 +37,7 @@ const Rightbar = ({user}) => {
              </div>
              <div className="rightbarInfoItem">
                 <span className="infoKey">From:</span>
-                <span className="infoValue">{user.form}</span>
+                <span className="infoValue">{user.from}</span>
              </div>
              <div className="rightbarInfoItem">
                 <span className="infoKey">Relationship:</span>

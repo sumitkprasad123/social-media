@@ -28,16 +28,16 @@ const Post = ({post}) => {
     <div className="post">
         <div className="postwrapper">
             <div className="postTop">
-              <div className="postTopLeft">
-               <Link to={`/profile/${user._id}`}>
-                  <img src={user.profilePicture || PF+"/noProfile.png"} alt="" className="postProfileImg" />
-               </Link>
-                 <span className="postUserName">{user.username}</span>
-                 <span className="postDate">{format(post.createdAt)}</span>
-              </div>
-              <div className="postTopRight">
-                 <MoreVertIcon/>
-              </div>
+               <div className="postTopLeft">
+                  <Link to={`/profile/${user.username}`}>
+                     <img src={user.profilePicture || PF+"/noProfile.png"} alt="" className="postProfileImg" />
+                  </Link>
+                  <span className="postUserName">{user.username}</span>
+                  <span className="postDate">{format(post.createdAt)}</span>
+               </div>
+               <div className="postTopRight">
+                  <MoreVertIcon/>
+               </div>
             </div>
             <div className="postCenter">
                <span className="postText">{post?.desc}</span>

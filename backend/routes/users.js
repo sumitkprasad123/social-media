@@ -40,7 +40,7 @@ router.delete("/:id",async(req,res) => {
           return res.status(500).json(err)         
         }
       }else{
-         return res.status(403).json("You can update only your accound")
+         return res.status(403).json("You can delete only your accound")
       }
 })
 
@@ -48,7 +48,7 @@ router.delete("/:id",async(req,res) => {
 router.get("/",async(req,res) => {
     const userId = req.query.userId;
     const username = req.query.username;
-    
+    console.log({"q":req.query})
     try{
         const user = userId
             ? await User.findById(userId)
@@ -93,7 +93,7 @@ router.put("/:id/unfollow",async(req,res) => {
                 await currentUser.updateOne({$pull:{followings:req.params.id} });
                 res.status(200).json("user has been unfollowed")
             }else{
-                res.status(403).json("you unfollow this user")
+                res.status(403).json("you already unfollow this user")
             }
         }catch(err) {
             res.status(500).json(err);

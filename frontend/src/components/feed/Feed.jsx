@@ -15,7 +15,7 @@ const Feed = ({username}) => {
     const getData = async() => {
       let res = username
       ? await axios.get(`http://localhost:8800/api/posts/profile/${username}`)
-      : await axios.get(`http://localhost:8800/api/posts/timeline/6547b964231ba5fcbccebc8a`)
+      : await axios.get(`http://localhost:8800/api/posts/timeline/6549dbd1e290eaea28fbe073`)
       console.log({"res":res.data})
       setPost(res.data)
    }

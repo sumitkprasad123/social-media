@@ -1,12 +1,15 @@
 import React, { useRef } from 'react'
 import "./register.css"
-import axios from "axios"
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
     const username = useRef()
     const email = useRef()
     const password = useRef()
     const passwordAgain = useRef()
+    const navigate = useNavigate()
 
     const handleClick = async(e) => {
         e.preventDefault();
@@ -22,6 +25,7 @@ const Register = () => {
            
             try{
                 await axios.post("http://localhost:8800/api/auth/register",user);
+                navigate("/login")
             }catch(err){
                 console.log(err)
             }

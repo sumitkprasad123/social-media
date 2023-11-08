@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react'
-import {AuthContext} from "../../contex/AuthContext"
+import {AuthContext} from "../../context/AuthContext"
 import "./login.css"
 import {loginCall} from "../../apiCalls" 
 import CircularProgress from '@mui/material/CircularProgress';

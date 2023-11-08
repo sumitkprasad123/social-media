@@ -42,7 +42,7 @@ const Rightbar = ({user}) => {
              <div className="rightbarInfoItem">
                 <span className="infoKey">Relationship:</span>
                 <span className="infoValue">
-                {user.relationship === 1 
+                {user.relationship === undefined || 1 
                 ? "Single"
                 :user.relationship === 1
                 ?"Married":"-"}</span>

@@ -1,9 +1,54 @@
-import React from 'react'
+import React, { useEffect,useState,useContext } from 'react'
 import "./rightbar.css"
 import {Users} from "../../dummyData"
 import Online from '../online/Online'
+import axios from "axios";
+import {Link} from "react-router-dom"
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import {AuthContext} from "../../context/AuthContext"
 
 const Rightbar = ({user}) => {
+  console.log({"u":user})
+const [friends,setFriends] = useState([]);
+const PF = process.env.REACT_APP_PUBLIC_FOLDER
+const {user:currentUser,dispatch} = useContext(AuthContext)
+const [followed,setFollowed] = useState(false)
+ 
+  useEffect(() => {
+    setFollowed(currentUser.followings.includes(user?._id) )
+  },[currentUser, user._id]);
+
+  useEffect(() => {
+     const getFriends = async () => {
+        try{
+          const friendList = await axios(`http://localhost:8800/api/users/friends/${user._id}`)
+          setFriends(friendList.data)
+        }catch(err){
+          console.log(err)
+        }
+     }
+     getFriends()
+  },[user])
+
+ const handleClick = async () => {
+   try{
+     if(followed){
+       await axios.put("http://localhost:8800/api/users/" + user._id + "/unfollow",{
+         userId:currentUser._id,
+       });
+       dispatch({type:"UNFOLLOW",payload:user._id})
+     }else{
+        await axios.put("http://localhost:8800/api/users/" + user._id + "/follow",{
+          userId:currentUser._id,
+        })
+       dispatch({type:"FOLLOW",payload:user._id})
+     }
+   }catch(err){
+    console.log(err)
+   }
+   setFollowed(!followed)
+ };
 
   const HomeRightbar = () => {
     return(
@@ -29,6 +74,12 @@ const Rightbar = ({user}) => {
   const ProfileRightbar = ({profile}) => {
     return (
       <>
+        {currentUser.username !== user.username && (
+            <button className="rightFollowButton" onClick={handleClick}>
+               {followed ? "UnFollow":"Follow"}
+               {followed ?<RemoveIcon/> :<AddIcon/>}
+            </button>
+         )}
         <h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
              <div className="rightbarInfoItem">
@@ -49,55 +100,25 @@ const Rightbar = ({user}) => {
              </div>
         </div>
         <h4 className="rightbarTitle">User friends</h4>
+       
         <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-              <img src="https://www.broomstickwed.com/wp-content/uploads/2022/05/sexy-russian-woman-450x501.jpeg" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0FbNf3tnYKvlCovzxnKtNwjrMoK38KcnzCbB79HSTjCPbD0dhEszQEColIa2bKkz5LPc&usqp=CAU" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://www.broomstickwed.com/wp-content/uploads/2022/05/sexy-russian-woman-450x501.jpeg" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0FbNf3tnYKvlCovzxnKtNwjrMoK38KcnzCbB79HSTjCPbD0dhEszQEColIa2bKkz5LPc&usqp=CAU" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://www.broomstickwed.com/wp-content/uploads/2022/05/sexy-russian-woman-450x501.jpeg" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0FbNf3tnYKvlCovzxnKtNwjrMoK38KcnzCbB79HSTjCPbD0dhEszQEColIa2bKkz5LPc&usqp=CAU" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://www.broomstickwed.com/wp-content/uploads/2022/05/sexy-russian-woman-450x501.jpeg" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
-          <div className="rightbarFollowing">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0FbNf3tnYKvlCovzxnKtNwjrMoK38KcnzCbB79HSTjCPbD0dhEszQEColIa2bKkz5LPc&usqp=CAU" alt="" className="rightbarFollowingImg" />
-              <span className="rightbarFollowingName">
-                Jhone Carter
-              </span>
-          </div>
+          {friends.map((friend) => {
+            
+                return <Link to={`/profile/${friend.username}`} style={{textDecoration:"none"}}>
+                          <div className="rightbarFollowing">
+                                <img src={friend.profilePicture || PF+"/noProfile.png"}
+                                  alt=""
+                                  className="rightbarFollowingImg"
+                                  />
+                              <span className="rightbarFollowingName">
+                                {friend.username}
+                              </span>
+                          </div>
+                      </Link>
+               }
+          )}
+         
+         
         </div>
       </>
     )

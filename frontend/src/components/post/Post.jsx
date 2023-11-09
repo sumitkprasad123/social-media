@@ -4,12 +4,20 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import axios from "axios";
 import {format} from "timeago.js"
 import {Link} from "react-router-dom" 
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthContext"
 
 const Post = ({post}) => {
-  const [like,setLike] = useState(post.like)
+  const [like,setLike] = useState(post.likes.length)
   const [isLike,setIsLike] = useState(false)
   const [user,setUser] = useState({})
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const {user:currentUser} = useContext(AuthContext)
+
+  useEffect(() => {
+   setIsLike(post.likes.includes(currentUser._id))
+  },[currentUser._id,post.likes])
 
   useEffect(() => {
      const userFetch = async() => {
@@ -19,7 +27,13 @@ const Post = ({post}) => {
      userFetch()
   },[post.userId])
 
-  const handleLike = () => {
+  const handleLike = async() => {
+
+    try{
+       await axios.put(`http://localhost:8800/api/posts/${post._id}/like`,{userId:currentUser._id})
+    }catch(err){
+      console.log(err)
+    }
      setLike(isLike?like-1:like+1)
      setIsLike(!isLike)
   }
@@ -41,13 +55,17 @@ const Post = ({post}) => {
             </div>
             <div className="postCenter">
                <span className="postText">{post?.desc}</span>
-               <img src={post.img} alt="" className="postImg" />
+               <img 
+                 src={PF+"/"+post.img}
+                 alt="" 
+                 className="postImg"
+                 />
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
                     <img src="https://image.similarpng.com/very-thumbnail/2020/06/Like-button-blue-facebook-transparent-PNG.png" onClick={handleLike} alt="" className="likeIcon" />
                       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnjxkG1bKsp8HNX5N8tF_evd57xjVZIJnomg&usqp=CAU" onClick={handleLike} alt="" className="likeIcon" />
-                     <span className="postLikeCounter" >{post.likes.length} people like it</span>
+                     <span className="postLikeCounter" >{like} people like it</span>
                 </div>
                 <div className="postBottomRight">
                    <span className="postCommentText">{post.comment} comments</span>

@@ -21,8 +21,7 @@ router.put("/:id",async(req,res) => {
         })
          res.status(200).json("account has been updated")
        }catch(err){
-         return res.status(500).json(err)         
-             
+         return res.status(500).json(err)                     
        }
      }else{
         return res.status(403).json("You can update only your accound")
@@ -62,7 +61,7 @@ router.get("/",async(req,res) => {
     }
 })
 
-//user friends
+//user friends i.e list of people user following 
 router.get("/friends/:userId",async(req,res) => {
     try{
        let user = await User.findById(req.params.userId)
@@ -84,7 +83,7 @@ router.get("/friends/:userId",async(req,res) => {
     }
 })
 
-// follow a user
+//user follow another user
 router.put("/:id/follow",async(req,res) => {
     if(req.body.userId !== req.params.id) {
         try{
@@ -105,7 +104,7 @@ router.put("/:id/follow",async(req,res) => {
     }
 })
 
-// unfollow user
+// user unfollow another user
 router.put("/:id/unfollow",async(req,res) => {
     if(req.body.userId !== req.params.id) {
         try{

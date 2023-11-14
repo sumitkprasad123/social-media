@@ -8,16 +8,16 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {AuthContext} from "../../context/AuthContext"
 
-const Rightbar = ({user}) => {
-  console.log({"u":user})
+const Rightbar = ({user}) => { 
+
 const [friends,setFriends] = useState([]);
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 const {user:currentUser,dispatch} = useContext(AuthContext)
-const [followed,setFollowed] = useState(false)
+const [followed,setFollowed] = useState(currentUser.followings.includes(user?._id))
  
   useEffect(() => {
     setFollowed(currentUser.followings.includes(user?._id) )
-  },[currentUser, user._id]);
+  },[currentUser, user?._id]);
 
   useEffect(() => {
      const getFriends = async () => {
@@ -71,7 +71,7 @@ const [followed,setFollowed] = useState(false)
     )
   }
 
-  const ProfileRightbar = ({profile}) => {
+  const ProfileRightbar = () => {
     return (
       <>
         {currentUser.username !== user.username && (
@@ -110,19 +110,18 @@ const [followed,setFollowed] = useState(false)
                                   alt=""
                                   className="rightbarFollowingImg"
                                   />
-                              <span className="rightbarFollowingName">
-                                {friend.username}
-                              </span>
+                                <span className="rightbarFollowingName">
+                                  {friend.username}
+                                </span>
                           </div>
                       </Link>
-               }
-          )}
-         
-         
+                 }
+            )}
         </div>
       </>
     )
   }
+  
   return (
     <div className='rightbar'>
        <div className="rightbarWrapper">

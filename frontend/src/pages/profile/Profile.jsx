@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{ useState,useEffect } from 'react'
 import "./profile.css"
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
@@ -6,6 +6,7 @@ import Feed from "../../components/feed/Feed"
 import Rightbar from "../../components/rightbar/Rightbar"
 import axios from "axios";
 import {useParams} from "react-router"
+
 
 const Profile = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -19,7 +20,7 @@ const Profile = () => {
     }
     userFetch()
  },[username])
-
+console.log({"p":user})
   return (
     <>
         <Topbar />

@@ -22,7 +22,7 @@ const [followed,setFollowed] = useState(currentUser.followings.includes(user?._i
   useEffect(() => {
      const getFriends = async () => {
         try{
-          const friendList = await axios(`http://localhost:8800/api/users/friends/${user._id}`)
+          const friendList = await axios(`http://localhost:8800/api/users/friends/${user?._id}`)
           setFriends(friendList.data)
         }catch(err){
           console.log(err)
@@ -104,8 +104,8 @@ const [followed,setFollowed] = useState(currentUser.followings.includes(user?._i
         <div className="rightbarFollowings">
           {friends.map((friend) => {
             
-                return <Link to={`/profile/${friend.username}`} style={{textDecoration:"none"}}>
-                          <div className="rightbarFollowing">
+                return <Link to={`/profile/${friend.username}`} style={{textDecoration:"none"}} key={friend._id}>
+                          <div  className="rightbarFollowing">
                                 <img src={friend.profilePicture || PF+"/noProfile.png"}
                                   alt=""
                                   className="rightbarFollowingImg"

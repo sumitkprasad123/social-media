@@ -6,30 +6,30 @@ const helmet = require("helmet")
 
 // middleware that provides request logging and HTTP request/response information
 const morgan = require("morgan")
-
+const cors = require("cors")
+// const multer = require("multer")
 const connection = require("./db")
 const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
 
-
-const cors = require("cors")
-const multer = require("multer")
-const path = require("path")
-
 const app = express()
 dotenv.config()
 
 // middleware
-                 //It tells Express to serve files from a specific location on your server.
-app.use("/image",express.static(path.join(__dirname,"public/image")));
-
 app.use(express.json())
 app.use(helmet());
 app.use(morgan("common"))
 app.use(cors())
 
+app.use("/api/users", userRoute)
+app.use("/api/auth", authRoute)
+app.use("/api/posts", postRoute)
+
+/*
 // multer for file/text uploading
+// It tells Express to serve files from a specific location on your server.
+
 const storage = multer.diskStorage({
      destination: (req,file,cb) => {
           cb(null, "public/image");
@@ -47,11 +47,7 @@ app.post("/api/upload", upload.single("file"), (req,res) => {
           console.log(err)
      }
 });
-
-app.use("/api/users", userRoute)
-app.use("/api/auth", authRoute)
-app.use("/api/posts", postRoute)
-
+*/
 
 
 app.listen(process.env.PORT,async() => {

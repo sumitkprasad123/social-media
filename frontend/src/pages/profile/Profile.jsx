@@ -9,13 +9,12 @@ import {useParams} from "react-router"
 
 
 const Profile = () => {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER
   const [user,setUser] = useState({})
   const username = useParams().username; 
 
   useEffect(() => {
     const userFetch = async() => {
-      let res = await axios(`http://localhost:8800/api/users?username=${username}`)
+      let res = await axios(`http://localhost:8080/api/users?username=${username}`)
       setUser(res.data)
     }
     userFetch()
@@ -29,8 +28,8 @@ console.log({"p":user})
         <div className="profileRight">
             <div className="profileRightTop">
                <div className="profileCover">              
-                   <img src={user.coverPicture || PF+"/coverPic.jpg"} alt="" className="profileCoverImg" />
-                   <img src={user.profilePicture || PF+"/noProfile.png"} alt="" className="profileUserImg" />
+                   <img src={user.coverPicture || "/assets/coverPic.jpg"} alt="" className="profileCoverImg" />
+                   <img src={user.profilePicture || "/assets/noProfile.jpg"} alt="" className="profileUserImg" />
                </div>
                <div className="profileInfo">
                   <h4 className="profileInfoName"> {user.username}</h4>

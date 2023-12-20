@@ -11,7 +11,6 @@ const Post = ({post}) => {
   const [like,setLike] = useState(post.likes.length)
   const [isLike,setIsLike] = useState(false)
   const [user,setUser] = useState({})
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const {user:currentUser} = useContext(AuthContext)
 
@@ -21,7 +20,7 @@ const Post = ({post}) => {
 
   useEffect(() => {
      const userFetch = async() => {
-       let res = await axios(`http://localhost:8800/api/users?userId=${post.userId}`)
+       let res = await axios(`https://beta-social-media.onrender.com/api/users?userId=${post.userId}`)
        setUser(res.data)
      }
      userFetch()
@@ -30,7 +29,7 @@ const Post = ({post}) => {
   const handleLike = async() => {
 
     try{
-       await axios.put(`http://localhost:8800/api/posts/${post._id}/like`,{userId:currentUser._id})
+       await axios.put(`https://beta-social-media.onrender.com/api/posts/${post._id}/like`,{userId:currentUser._id})
     }catch(err){
       console.log(err)
     }
@@ -44,7 +43,7 @@ const Post = ({post}) => {
             <div className="postTop">
                <div className="postTopLeft">
                   <Link to={`/profile/${user.username}`}>
-                     <img src={user.profilePicture || PF+"/noProfile.png"} alt="" className="postProfileImg" />
+                     <img src={user.profilePicture || "/assets/noProfile.jpg"} alt="" className="postProfileImg" />
                   </Link>
                   <span className="postUserName">{user.username}</span>
                   <span className="postDate">{format(post.createdAt)}</span>
@@ -56,7 +55,7 @@ const Post = ({post}) => {
             <div className="postCenter">
                <span className="postText">{post?.desc}</span>
                <img 
-                 src={PF+"/"+post.img}
+                 src={post.img}
                  alt="" 
                  className="postImg"
                  />

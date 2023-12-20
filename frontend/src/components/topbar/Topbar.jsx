@@ -9,8 +9,7 @@ import { useContext } from 'react';
 import {AuthContext} from "../../context/AuthContext"
 
 const Topbar = () => {
-const {user} = useContext(AuthContext)
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const { user } = useContext(AuthContext)
   return (
     <div className="topbarContainer">
         <div className="topbarLeft">
@@ -50,7 +49,7 @@ const PF = process.env.REACT_APP_PUBLIC_FOLDER;
                   src={
                     user.profilePicture
                     ? user.profilePicture
-                    : PF+"/noProfile.png"
+                    :"/assets/noProfile.jpg"
                   } 
                   alt="" 
                   className='topbarImg' />

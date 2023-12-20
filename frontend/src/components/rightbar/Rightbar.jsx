@@ -106,7 +106,7 @@ const [followed,setFollowed] = useState(currentUser.followings.includes(user?._i
             
                 return <Link to={`/profile/${friend.username}`} style={{textDecoration:"none"}} key={friend._id}>
                           <div  className="rightbarFollowing">
-                                <img src={friend.profilePicture || PF+"/noProfile.png"}
+                                <img src={friend.profilePicture || "/assets/noProfile.jpg"}
                                   alt=""
                                   className="rightbarFollowingImg"
                                   />

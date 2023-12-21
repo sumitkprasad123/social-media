@@ -33,14 +33,13 @@ router.put("/:id",async(req,res) => {
 
 // delete a post
 // router.delete("/:id",async(req,res) => {
-   router.delete("/",async(req,res) => {
+   router.delete("/:id",async(req,res) => {
    try{
       //   const post = await Post.findById(req.params.id);
       //   if(post.userId === req.body.userId){
       //   if(req.body.postId){
-      //     console.log({"p":req.body.postId})
          //   await post.deleteOne();
-           await Post.findByIdAndDelete(req.body.postId)
+           await Post.findByIdAndDelete(req.params.id)
            res.status(200).json("post has been deleted")
       //   }else{
       //      res.status(403).json("you can delete only your post")

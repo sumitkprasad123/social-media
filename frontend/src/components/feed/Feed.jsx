@@ -16,8 +16,8 @@ const Feed = ({username}) => {
   useEffect(() => {
     const getData = async() => {
       let res = username
-      ? await axios.get(`http://localhost:8080/api/posts/profile/${username}`)
-      : await axios.get(`http://localhost:8080/api/posts/timeline/${user._id}`)
+      ? await axios.get(`https://beta-social-media.onrender.com/api/posts/profile/${username}`)
+      : await axios.get(`https://beta-social-media.onrender.com/api/posts/timeline/${user._id}`)
       console.log({"res":res.data})
       setPost(res.data.sort((p1,p2) => {
         return new Date(p2.createdAt) - new Date(p1.createdAt)

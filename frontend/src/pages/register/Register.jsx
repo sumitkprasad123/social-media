@@ -24,7 +24,7 @@ const Register = () => {
             }
            
             try{
-                await axios.post("http://localhost:8800/api/auth/register",user);
+                await axios.post("https://beta-social-media.onrender.com/api/auth/register",user);
                 navigate("/login")
             }catch(err){
                 console.log(err)
@@ -49,7 +49,7 @@ const Register = () => {
                     <input type="password" placeholder="Password" className="loginInput" ref={password}  required minLength={"6"}/>
                     <input type="password" placeholder="Password again" className="loginInput" ref={passwordAgain} required minLength={"6"}/>
                     <button className="loginButton" type="submit">Sign Up</button>
-                    <button className="loginRegistrButton">Login your Account</button>
+                    <button className="loginRegistrButton"  onClick={()=>navigate("/login")}>Login your Account</button>
                 </form>
             </div>
         </div>

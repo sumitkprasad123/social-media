@@ -14,7 +14,7 @@ const Profile = () => {
 
   useEffect(() => {
     const userFetch = async() => {
-      let res = await axios(`http://localhost:8080/api/users?username=${username}`)
+      let res = await axios(`https://beta-social-media.onrender.com/api/users?username=${username}`)
       setUser(res.data)
     }
     userFetch()

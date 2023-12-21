@@ -11,18 +11,17 @@ import {AuthContext} from "../../context/AuthContext"
 const Rightbar = ({user}) => { 
 
 const [friends,setFriends] = useState([]);
-const PF = process.env.REACT_APP_PUBLIC_FOLDER
 const {user:currentUser,dispatch} = useContext(AuthContext)
 const [followed,setFollowed] = useState(currentUser.followings.includes(user?._id))
  
   useEffect(() => {
     setFollowed(currentUser.followings.includes(user?._id) )
   },[currentUser, user?._id]);
-
+  console.log({"user":user})
   useEffect(() => {
      const getFriends = async () => {
         try{
-          const friendList = await axios(`http://localhost:8800/api/users/friends/${user?._id}`)
+          const friendList = await axios(`https://beta-social-media.onrender.com/api/users/friends/${user._id}`)
           setFriends(friendList.data)
         }catch(err){
           console.log(err)
@@ -34,12 +33,12 @@ const [followed,setFollowed] = useState(currentUser.followings.includes(user?._i
  const handleClick = async () => {
    try{
      if(followed){
-       await axios.put("http://localhost:8800/api/users/" + user._id + "/unfollow",{
+       await axios.put("https://beta-social-media.onrender.com/api/users/" + user._id + "/unfollow",{
          userId:currentUser._id,
        });
        dispatch({type:"UNFOLLOW",payload:user._id})
      }else{
-        await axios.put("http://localhost:8800/api/users/" + user._id + "/follow",{
+        await axios.put("https://beta-social-media.onrender.com/api/users/" + user._id + "/follow",{
           userId:currentUser._id,
         })
        dispatch({type:"FOLLOW",payload:user._id})

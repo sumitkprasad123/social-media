@@ -8,35 +8,26 @@ import {AuthContext} from "../../context/AuthContext"
 import {useContext} from "react"
 import axios from "axios";
 import CloseIcon from '@mui/icons-material/Close';
+import upload from "../../utils/upload"
 
 const Share = () => {
     const [ file, setFile] = useState(null)
     const {user} = useContext(AuthContext)
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER
     const desc = useRef()
     
     const submitHandler = async(e) => {
         e.preventDefault()
+        const url = await upload(file);
+        console.log({"u":url})
+
         const newPost = {
             userId : user._id,
-            desc:desc.current.value
+            desc:desc.current.value,
+            img:url
         }
-        if(file){
-            const data = new FormData();
-            const fileName = Date.now() + file.name;
-            data.append("name",fileName);
-            data.append("file",file);
-            newPost.img = fileName
-            console.log(newPost);
-
-            try{
-               axios.post(`http://localhost:8800/api/upload`,data)
-            }catch(err){
-               console.log(err)
-            }
-        };
+        
         try{
-            await axios.post(`http://localhost:8800/api/posts`,newPost);
+            await axios.post(`https://beta-social-media.onrender.com/api/posts`,newPost);
             window.location.reload();
         }catch(err){
             console.log(err)
@@ -51,7 +42,7 @@ const Share = () => {
                     className="shareProfileImg" 
                     src={
                      user.profilePicture 
-                     || PF+"/noProfile.png"
+                     || "/assets/noProfile.jpg"
                     } 
                     alt="" />
                 <input 
@@ -74,8 +65,8 @@ const Share = () => {
                <div className="shareOptions">
                     <label htmlFor="file" className="shareOption">
                         <CollectionsIcon htmlColor='tomato' className='shareIcon' />
-                        <span className="shareOptionText">Photo or Video</span>
-                        <input style={{display:"none"}} type="file" id="file" accept=".png,.jpeg,.jpg" onChange={(e) => setFile(e.target.files[0])}/>
+                        <span className="shareOptionText">Photo or Video</span>{/* <input style={{display:"none"}} type="file"  onChange={(e) => setFile(e.target.files[0])}/> */}
+                        <input style={{display:"none"}} type="file" id="file" onChange={(e) => setFile(e.target.files[0])}/>
                     </label>
                     <div className="shareOption">
                         <LoyaltyIcon htmlColor='blue' className='shareIcon' />

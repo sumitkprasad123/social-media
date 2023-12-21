@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import "./post.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import {format} from "timeago.js"
-import {Link} from "react-router-dom" 
+import {Link, useParams} from "react-router-dom" 
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext"
 
@@ -11,7 +12,9 @@ const Post = ({post}) => {
   const [like,setLike] = useState(post.likes.length)
   const [isLike,setIsLike] = useState(false)
   const [user,setUser] = useState({})
-
+  const [openDel,setOpenDel] = useState(false);
+  const {username} = useParams()
+//   console.log({"param":username})
   const {user:currentUser} = useContext(AuthContext)
 
   useEffect(() => {
@@ -37,6 +40,18 @@ const Post = ({post}) => {
      setIsLike(!isLike)
   }
 
+  const handleDeleteOpen = () => {
+        setOpenDel(!openDel)
+  }
+  const handleDelete = async() => {
+      try{
+         await axios.delete(`https://beta-social-media.onrender.com/api/posts/${post?._id}`)
+         window.location.reload();
+      }catch(err){
+         console.log(err)
+      }
+}
+console.log({"PostId":post._id})
   return (
     <div className="post">
         <div className="postwrapper">
@@ -49,7 +64,12 @@ const Post = ({post}) => {
                   <span className="postDate">{format(post.createdAt)}</span>
                </div>
                <div className="postTopRight">
-                  <MoreVertIcon/>
+                 {username===currentUser.username?<MoreVertIcon onClick={handleDeleteOpen}/>:null} 
+                  { openDel && <div className="optionDel" onClick={()=>setOpenDel(!openDel)}>
+                      <CloseIcon className='Cancel'/>
+                      <Link className='link' onClick={handleDelete} >Delete the post</Link>
+                      <Link className='link' >Edit the post</Link>
+                   </div>}
                </div>
             </div>
             <div className="postCenter">

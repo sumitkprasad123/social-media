@@ -1,6 +1,6 @@
 import React, { useEffect,useState,useContext } from 'react'
 import "./rightbar.css"
-import {Users} from "../../dummyData"
+// import {Users} from "../../dummyData"
 import Online from '../online/Online'
 import axios from "axios";
 import {Link} from "react-router-dom"
@@ -11,6 +11,7 @@ import {AuthContext} from "../../context/AuthContext"
 const Rightbar = ({user}) => { 
 
 const [friends,setFriends] = useState([]);
+const [Users,setUsers] = useState([]);
 const {user:currentUser,dispatch} = useContext(AuthContext)
 const [followed,setFollowed] = useState(currentUser.followings.includes(user?._id))
  
@@ -29,6 +30,19 @@ const [followed,setFollowed] = useState(currentUser.followings.includes(user?._i
      }
      getFriends()
   },[user])
+
+  // all users
+  useEffect(() => {
+    const getUser = async () => {
+       try{
+         const userList = await axios(`https://beta-social-media.onrender.com/api/users/all`)
+         setUsers(userList.data)
+       }catch(err){
+         console.log(err)
+       }
+    }
+    getUser()
+ },[user])
 
  const handleClick = async () => {
    try{

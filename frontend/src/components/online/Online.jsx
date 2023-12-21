@@ -1,18 +1,21 @@
 import React from 'react'
 import "./online.css"
+import { Link } from 'react-router-dom'
 
 const Online = ({user}) => {
    
   return (
-    <li className="rightbarFriend">
-        <div className="rightbarProfileImgContainer">
-            <img src={user.profilePicture} alt="" className="rightbarProfileImg" />
-            <span className="rightbarOnline">
+      <Link className='link' to={`profile/${user.username}`}>
+        <li className="rightbarFriend">
+              <div className="rightbarProfileImgContainer">
+                  <img src={user.profilePicture?user.profilePicture:"/assets/noProfile.jpg"} alt="" className="rightbarProfileImg" />
+                  <span className="rightbarOnline">
 
-            </span>
-        </div>
-        <span className='rightbarUsername'>{user.username}</span>
-    </li>
+                  </span>
+              </div>
+              <span className='rightbarUsername'>{user.username}</span>
+        </li>
+      </Link>
   )
 }
 

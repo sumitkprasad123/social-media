@@ -4,12 +4,14 @@ import "./login.css"
 import {loginCall} from "../../apiCalls" 
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 const Login = () => {
    const email = useRef();
    const password = useRef();
    const navigate = useNavigate()
-   const { user,isFetching,error,dispatch } = useContext(AuthContext)
+   const { user,isFetching,dispatch } = useContext(AuthContext)
+   const { error} = useContext(AuthContext)
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -18,13 +20,14 @@ const Login = () => {
             {email:email.current.value,password:password.current.value},
              dispatch
          );
-        
+         <Alert variant="filled" severity="success">Logging Successful</Alert>
      };
   console.log(user)
   console.log({"f":isFetching})
-  console.log(error)
+  console.log({"error":error})
   return (
-    <div className="login">
+      <div className="login">
+      
         <div className="loginWrapper">
             <div className="loginLeft">
                 <h3 className="loginLogo">facebook</h3>
@@ -57,6 +60,7 @@ const Login = () => {
                        {isFetching ? <CircularProgress size="20px" color="white" />: "Create a New Account"}                     
                     </button>
                 </form>
+                {error?<Alert variant="filled" severity="error">Wrong Credential</Alert>:null}
             </div>
         </div>
     </div>

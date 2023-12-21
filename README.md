@@ -33,7 +33,7 @@
    - Signup Page -->
    
   
-  ![Homepage](https://github.com/1995Neha18/glossy-paper-5488/assets/113035635/94a52ac3-3a0c-4abb-90e0-478b713c801c)
+  ![Homepage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152291/Screenshot_617_gxet7d.png)
 
 ## 🚀 Features
    - Home Page
@@ -46,17 +46,26 @@
 ## Glimpses of Facebook - Clone 🙈 :
 
 
-![Homepage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152291/Screenshot_617_gxet7d.png)
+
 
 ![Homepage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152290/Screenshot_618_zhzlmx.png)
 
+
+
 ![ProfilePage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152290/Screenshot_619_e7ygao.png)
+
+
 
 ![ProfilePage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152292/Screenshot_620_ikf1qb.png)
 
+
+
 ![Loginpage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152289/Screenshot_616_tnpmxq.png)
 
+
+
 ![SignUppage](https://res.cloudinary.com/sumitkprasad/image/upload/v1703152289/Screenshot_615_ehx30r.png)
+
 
 
 
